@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -32,12 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
     _controller.animateToPage(_currentIndex);
   }
 
-  void lastSlide(){
-     setState(() {
-      _currentIndex =image.length-1;
+  void lastSlide(BuildContext context) {
+    setState(() {
+      _currentIndex = image.length - 1;
     });
     _controller.animateToPage(_currentIndex);
-
   }
 
   final List<String> textList = [
@@ -106,19 +106,17 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           ...textListImage(),
           ...(_currentIndex == image.length - 1
-              ? buttonLastIndex() 
+              ? buttonLastIndex()
               : buttonIndex()),
         ],
       ),
     );
   }
-  List<Widget> textListImage(){
-    return [
-        Positioned(child: Text("data")),
-        Positioned(child: Text("data"))
 
-    ];
+  List<Widget> textListImage() {
+    return [Positioned(child: Text("data")), Positioned(child: Text("data"))];
   }
+
   List<Widget> buttonIndex() {
     return [
       Positioned(
@@ -142,15 +140,25 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   List<Widget> buttonLastIndex() {
-    return[ Positioned(
+    return [
+      Positioned(
         bottom: 100,
 
-      child: Center(
-        child: ElevatedButton(
-          onPressed: lastSlide,
-          child: Text("Getting Started"),
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              setState(() {
+                setState(() {
+                  _currentIndex = image.length - 1;
+                });
+                context.go('/home');
+                _controller.animateToPage(_currentIndex);
+              });
+            },
+            child: Text("Getting Started"),
+          ),
         ),
       ),
-    )];
+    ];
   }
 }

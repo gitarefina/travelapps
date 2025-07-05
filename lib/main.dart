@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:travelapp/home_page.dart';
+import 'package:travelapp/features/home/presentation/home_page.dart';
 import 'package:travelapp/splash_screen.dart';
 
 void main() {
