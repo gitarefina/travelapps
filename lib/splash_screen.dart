@@ -15,9 +15,9 @@ class _SplashScreenState extends State<SplashScreen> {
   final CarouselSliderController _controller = CarouselSliderController();
 
   final List<String> image = [
-    'https://digital.ihg.com/is/image/ihg/intercontinental-bali-9719167392-2x1.png',
-    'https://img.antaranews.com/cache/800x533/2024/10/02/Kunjungan-Wisman-Tertinggi-021024-hnd-7.jpg.webp',
-    'https://img.antaranews.com/cache/800x533/2024/10/02/Kunjungan-Wisman-Tertinggi-021024-hnd-7.jpg.webp',
+    'https://www.balisurfingcamp.com/wp-content/uploads/2023/06/reasons-why-bali-hero-1536x667.jpg.webp',
+    'https://image.idntimes.com/post/20240104/robin-ulrich-quz6koaew2o-unsplash-fc8cb3733c256aed40a16795602038d0.jpg',
+    'https://baliexception.com/wp-content/uploads/2024/03/Bali.webp',
   ];
 
   void nextSlide() {
@@ -250,20 +250,22 @@ class _SplashScreenState extends State<SplashScreen> {
           },
           child:
           
-           Container(
-            height: 49.h,
-            width: 100.w,
-
-            child: Text(
-              "Getting started",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: "nunito",
-                fontSize: 32.sp,
-                fontWeight: FontWeight.bold,
+           Center(
+             child: Container(
+              height: 49.h,
+              width: 180.w,
+             
+              child: Text(
+                "Getting started",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "nunito",
+                  fontSize: 32.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ),
+                       ),
+           ),
         ),
       ),
   
