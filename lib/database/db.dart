@@ -6,25 +6,39 @@ import 'package:path/path.dart';
 
 class databaseSqlProvider {
   static final databaseSqlProvider provider = databaseSqlProvider();
-  Database? database;
+  Database? _database;
+
+  Future<Database> get databaseHistory async {
+    if (_database != null) return _database!;
+    _database = await createDatabaseDestinationHistory();
+
+    return _database!;
+  }
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await createDatabaseDestinationHistory();
+
+    return _database!;
+  }
 
   Future<Database> getDatabaseAllDestionation() async {
-    if (database != null) {
-      return database!;
+    if (_database != null) {
+      return _database!;
     } else {
-      database = await createDatabaseAllDestination();
+      _database = await createDatabaseAllDestination();
 
-      return database!;
+      return _database!;
     }
   }
 
   Future<Database> getDatabaseDestionationHistory() async {
-    if (database != null) {
-      return database!;
+    if (_database != null) {
+      return _database!;
     } else {
-      database = await createDatabaseAllDestination();
+      _database = await createDatabaseAllDestination();
 
-      return database!;
+      return _database!;
     }
   }
 
@@ -41,13 +55,12 @@ class databaseSqlProvider {
       },
       onCreate: (Database db, int version) async {
         await db.execute(
-          "CREATE TABLE  destination("
-          "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-          "destinationId INTEGER ,"
-          "typeSource TEXT, "
-          "typeName TEXT, "
+          "CREATE TABLE  destination_history ("
+          "destination_id INTEGER PRIMARY KEY ,"
+          "type_source TEXT, "
+          "type_name TEXT, "
           "name TEXT, "
-          "packageTypeId INTEGER "
+          "package_type_id INTEGER "
           ")",
         );
       },
@@ -69,12 +82,11 @@ class databaseSqlProvider {
       onCreate: (Database db, int version) async {
         await db.execute(
           "CREATE TABLE  destination_history ("
-          "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-          "destinationId INTEGER ,"
-          "typeSource TEXT, "
-          "typeName TEXT, "
+          "destination_id INTEGER PRIMARY KEY ,"
+          "type_source TEXT, "
+          "type_name TEXT, "
           "name TEXT, "
-          "packageTypeId INTEGER "
+          "package_type_id INTEGER "
           ")",
         );
       },

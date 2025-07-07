@@ -32,7 +32,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     BlocProvider.of<HomeBloc>(context).add(destinationList());
     BlocProvider.of<HomeBloc>(context).add(getDestinationHistory());
   }
@@ -42,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         Container(
-          height: MediaQuery.of(context).size.height,
+          height: 917.h,
           color: Colors.white,
           child: Column(
             children: [
@@ -52,6 +51,8 @@ class _HomePageState extends State<HomePage> {
               promo(imageList),
               textHeader("Find your experience"),
               searchBox(),
+
+              // buttonSubmitExperience(),
               textHeader("Recent History"),
               recentHistory(),
             ],
@@ -62,19 +63,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget recentHistory() {
+    print("kedetect gaaa");
     return BlocConsumer<HomeBloc, HomeState>(
       builder: (BuildContext context, HomeState state) {
         return SizedBox(
-          height: 150, // tinggi wajib ditentukan untuk horizontal list
+          height: 150, 
           child: ListView.builder(
             scrollDirection:
-                Axis.horizontal, // 👈 ini bikin scroll dari kiri ke kanan
+                Axis.horizontal,
             itemCount: destinationHistory.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 120, // 👈 lebar ditentukan karena scroll horizontal
+                  width: 120, 
                   decoration: BoxDecoration(
                     color: Colors.blue.shade100,
                     borderRadius: BorderRadius.circular(12),
@@ -131,6 +133,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget buttonSubmitExperience() {
+    return ElevatedButton(
+      onPressed: () {
+        context.read<HomeBloc>().add(insertDestinationHistory(selectedMenu!));
+        if (destinationid == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('This is a snackbar!'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        } else {
+          context.go("/experience/$destinationid");
+        }
+      },
+      child: Text("Search"),
+    );
+  }
+
   Widget promo(List<String> image) {
     print("image list home");
     print(image.length);
@@ -153,12 +175,14 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Center(
                 child: Text(
-                  "Promo 50%",
+                  "Get your 50% deals at Otaqu",
                   style: TextStyle(
+                        decoration: TextDecoration.none,
+
                     color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    backgroundColor: Colors.black45,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.normal,
+                    // backgroundColor: Colors.black45,
                   ),
                 ),
               ),
@@ -172,12 +196,36 @@ class _HomePageState extends State<HomePage> {
   Widget searchBox() {
     return Center(
       child: Container(
-        child: dropDownMenu(),
-        height: 100.h,
-        width: 200.w,
+        height: 200.h,
+        width: 412.w, // full width container
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 31, 29, 29),
-          borderRadius: BorderRadius.circular(30), // 👈 Rounded corners
+          color: const Color.fromARGB(10, 200, 200, 200),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Column(
+          children: [
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Where do u wanna go?",
+                    style: TextStyle(
+                      fontFamily: 'nunito',
+                      fontSize: 15.sp,
+                      color: Color.fromARGB(100, 160, 160, 160),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              // ⬅️ This centers the dropdown inside the container
+              child: SizedBox(child: dropDownMenu()),
+            ),
+            buttonSubmitExperience(),
+          ],
         ),
       ),
     );
@@ -187,38 +235,36 @@ class _HomePageState extends State<HomePage> {
     return BlocConsumer<HomeBloc, HomeState>(
       builder: (BuildContext context, HomeState state) {
         return Material(
+          color: Colors.transparent, // ⬅️ avoid default white background
+
           child: Container(
             width: MediaQuery.of(context).size.width * 0.8,
+            height: 50.h,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30), // ✅ rounded corners
-              border: Border.all(color: Colors.grey.shade300,style: BorderStyle.solid),
+              border: Border.all(
+                color: Colors.grey, // or any variable like `col`
+                width: 1, // optional: default is 1.0
+                style: BorderStyle.solid,
+              ),
+              borderRadius: BorderRadius.circular(30),
             ),
             child: DropdownMenu<DataDestination>(
               controller: textLocation,
               width: MediaQuery.of(context).size.width,
               hintText: null, // hint will be handled by label
-              requestFocusOnTap: true,
+              requestFocusOnTap: false,
               enableFilter: true,
-              trailingIcon:
-                  const SizedBox.shrink(), // ✅ Hides the dropdown icon
+              trailingIcon: const SizedBox.shrink(),
 
               inputDecorationTheme: InputDecorationTheme(
                 border: InputBorder.none,
                 labelStyle: TextStyle(
-                  color: Colors.grey.shade600, // ✅ grey label
+                  color: Colors.grey.shade600,
                   fontSize: 16,
                 ),
               ),
-              menuStyle: MenuStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.white),
-                shape: MaterialStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
+             
               onSelected: (DataDestination? menu) {
                 setState(() {
                   selectedMenu = menu;

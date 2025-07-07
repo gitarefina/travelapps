@@ -130,18 +130,21 @@ class _SplashScreenState extends State<SplashScreen> {
       widgets.add(
         Positioned(
           bottom: 200,
-
+          left: 0,
+          right: 0,
           child: Container(
-            child: Text(
-              softWrap: true,
-              overflow: TextOverflow.visible,
-
-              textList[i],
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: "nunito",
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: Text(
+                softWrap: true,
+                overflow: TextOverflow.visible,
+                textList[i].substring(0,80),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "nunito",
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -155,16 +158,18 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget textHeaderMain() {
     return Positioned(
       bottom: 250,
-  left: 0,
-  right: 0,
+      left: 0,
+      right: 0,
       child: Center(
         child: Container(
           child: Text(
             softWrap: true,
             overflow: TextOverflow.visible,
-        
-           "Travel Easy",
+
+            "Travel Easy",
             style: TextStyle(
+              decoration: TextDecoration.none,
+
               color: Colors.white,
               fontFamily: "nunito",
               fontSize: 30.sp,
@@ -266,7 +271,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ), // button background color
           ),
           onPressed: () {
-            context.go('/home');
+            context.go('/splashmain');
 
             setState(() {
               setState(() {

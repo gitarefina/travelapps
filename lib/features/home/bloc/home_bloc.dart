@@ -13,6 +13,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     : super(HomeState.initial()) {
     on<insertDestinationHistory>((event, emit) async {
       try {
+
+
         final service =await databaseService.createDatabaseDestinationHistory(
           event.model,
         );
@@ -25,11 +27,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 
      on<getDestinationHistory>((event, emit) async {
+      print("kebaca gaaa");
       try {
         final service =await databaseService.getDestinationHistory(
         );
+        print("data destination history");
+        print(service);
         emit(state.copyWith(state: HomeStateStatus.success,dataHistory: service));
       } catch (e) {
+        print("destination error");
+        print(e.toString());
         emit(
           state.copyWith(state: HomeStateStatus.error, message: e.toString()),
         );

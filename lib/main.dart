@@ -14,6 +14,7 @@ import 'package:travelapp/service/database_service.dart';
 import 'package:travelapp/service/destinations_service.dart';
 import 'package:travelapp/service/experience_service.dart';
 import 'package:travelapp/splash_screen.dart';
+import 'package:travelapp/splash_screen_main.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,6 @@ void main() {
 
   final username = Helper.getUsername;
   final password = Helper.getPassword;
-  print("usernamepassword$username$password");
   if (username != null && password != null) {
     TokenGenerate.setupDio(username, password);
     tokenGenerate.refreshNewToken(username, password);
@@ -31,7 +31,6 @@ void main() {
       designSize: const Size(412, 917),
       minTextAdapt: true,
       splitScreenMode: true,
-
       child: const MainApp(),
     ),
   );
@@ -76,7 +75,14 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/experience/:id',
       name: 'experience',
-      builder: (context, state) => ExperiencePage(),
+      builder: (context, state) {  final id = int.tryParse(state.pathParameters['id'] ?? '');
+    return ExperiencePage(id: id!);}
+    ),
+
+    GoRoute(
+      path: '/splashmain',
+      name: 'splashmain',
+      builder:(context, state) => SplashScreenMain(),
     ),
   ],
 );

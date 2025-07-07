@@ -169,7 +169,7 @@ class Package {
             operationTimeIn: json["operation_time_in"],
             operationTimeOut: json["operation_time_out"],
             timeZone: json["time_zone"],
-            images: json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
+            images: json["images"] == null ? ["https://balidave.com/wp-content/uploads/2022/11/best-hotel-bali.jpeg"] : List<String>.from(json["images"]!.map((x) => x)),
             packageTypeId: json["package_type_id"],
             packageTypeName: json["package_type_name"],
             isInstallment: json["is_installment"],
