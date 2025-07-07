@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   final CarouselSliderController _controller = CarouselSliderController();
 
   final List<String> image = [
-    'https://img.antaranews.com/cache/800x533/2024/10/02/Kunjungan-Wisman-Tertinggi-021024-hnd-7.jpg.webp',
+    'https://digital.ihg.com/is/image/ihg/intercontinental-bali-9719167392-2x1.png',
     'https://img.antaranews.com/cache/800x533/2024/10/02/Kunjungan-Wisman-Tertinggi-021024-hnd-7.jpg.webp',
     'https://img.antaranews.com/cache/800x533/2024/10/02/Kunjungan-Wisman-Tertinggi-021024-hnd-7.jpg.webp',
   ];
@@ -41,6 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   final List<String> textList = [
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
   ];
 
@@ -72,16 +75,22 @@ class _SplashScreenState extends State<SplashScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(image.length, (index) {
-                          return Container(
-                            width: 10,
-                            height: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                            decoration: BoxDecoration(
-                              color: _currentIndex == index
-                                  ? Colors.white
-                                  : Colors.grey,
-                              borderRadius: BorderRadius.circular(100),
-                            ),
+                          return Column(
+                            children: [
+                              Container(
+                                width: 10,
+                                height: 10,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 4.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: _currentIndex == index
+                                      ? Colors.white
+                                      : Colors.grey,
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                              ),
+                            ],
                           );
                         }),
                       ),
@@ -114,26 +123,101 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   List<Widget> textListImage() {
-    return [Positioned(child: Text("data")), Positioned(child: Text("data"))];
+    List<Widget> widgets = [];
+
+    for (var i = 0; i < textList.length; i++) {
+      widgets.add(
+        Positioned(
+          bottom: 50,
+
+          child: Container(
+            child: Text(
+              softWrap: true,
+              overflow: TextOverflow.visible,
+
+              textList[i],
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: "nunito",
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    return widgets;
   }
 
   List<Widget> buttonIndex() {
     return [
       Positioned(
         bottom: 100,
-        left: 10,
+        left: 50,
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(
+              50,
+              255,
+              201,
+              14,
+            ), // button background color
+          ),
+
           onPressed: prefSlide,
-          child: Container(child: Text("Skip")),
+          child: Positioned(
+            bottom: 200,
+            left: 30,
+            child: Center(
+              child: Container(
+                height: 49.h,
+                width: 100.w,
+                child: Text(
+                  "Travel Easy",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: "nunito",
+                    fontSize: 32.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
 
       Positioned(
         bottom: 100,
-        right: 10,
+        right: 30,
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(
+              50,
+              255,
+              201,
+              14,
+            ), // button background color
+          ),
           onPressed: nextSlide,
-          child: Container(child: Text("Next")),
+          child:
+          
+           Container(
+            height: 49.h,
+            width: 100.w,
+
+            child: Text(
+              "Next",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: "nunito",
+                fontSize: 32.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
       ),
     ];
@@ -141,24 +225,51 @@ class _SplashScreenState extends State<SplashScreen> {
 
   List<Widget> buttonLastIndex() {
     return [
-      Positioned(
+  Positioned(
         bottom: 100,
+        right: 30,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color.fromARGB(
+              50,
+              255,
+              201,
+              14,
+            ), // button background color
+          ),
+          onPressed:() {
+            print("ketrigger gaa");
+              context.go('/home');
 
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
               setState(() {
                 setState(() {
                   _currentIndex = image.length - 1;
                 });
-                context.go('/home');
                 _controller.animateToPage(_currentIndex);
               });
-            },
-            child: Text("Getting Started"),
+          },
+          child:
+          
+           Container(
+            height: 49.h,
+            width: 100.w,
+
+            child: Text(
+              "Getting started",
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: "nunito",
+                fontSize: 32.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
       ),
+  
+
+
+     
     ];
   }
 }
