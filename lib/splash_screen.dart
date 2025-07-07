@@ -113,6 +113,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
           ),
+          textHeaderMain(),
           ...textListImage(),
           ...(_currentIndex == image.length - 1
               ? buttonLastIndex()
@@ -153,19 +154,22 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget textHeaderMain() {
     return Positioned(
-      bottom: 230,
-
-      child: Container(
-        child: Text(
-          softWrap: true,
-          overflow: TextOverflow.visible,
-
-         "Travel Easy",
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: "nunito",
-            fontSize: 15.sp,
-            fontWeight: FontWeight.bold,
+      bottom: 250,
+  left: 0,
+  right: 0,
+      child: Center(
+        child: Container(
+          child: Text(
+            softWrap: true,
+            overflow: TextOverflow.visible,
+        
+           "Travel Easy",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: "nunito",
+              fontSize: 30.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
@@ -195,13 +199,15 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Container(
                 height: 49.h,
                 width: 100.w,
-                child: Text(
-                  "Travel Easy",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: "nunito",
-                    fontSize: 32.sp,
-                    fontWeight: FontWeight.bold,
+                child: Center(
+                  child: Text(
+                    "Skip",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "nunito",
+                      fontSize: 25.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -227,13 +233,15 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 49.h,
             width: 100.w,
 
-            child: Text(
-              "Next",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: "nunito",
-                fontSize: 32.sp,
-                fontWeight: FontWeight.bold,
+            child: Center(
+              child: Text(
+                "Next",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "nunito",
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -246,7 +254,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return [
       Positioned(
         bottom: 100,
-        right: 30,
+        left: 0,
+        right: 0,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Color.fromARGB(
@@ -257,7 +266,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ), // button background color
           ),
           onPressed: () {
-            print("ketrigger gaa");
             context.go('/home');
 
             setState(() {

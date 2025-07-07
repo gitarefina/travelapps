@@ -46,15 +46,12 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           child: Column(
             children: [
-              SizedBox(height: 100,),
+              SizedBox(height: 100),
               textHeaderMain("Find your place"),
-
               textHeader("Promo"),
               promo(imageList),
               textHeader("Find your experience"),
-
               searchBox(),
-
               textHeader("Recent History"),
               recentHistory(),
             ],
@@ -178,9 +175,8 @@ class _HomePageState extends State<HomePage> {
         child: dropDownMenu(),
         height: 100.h,
         width: 200.w,
-
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: const Color.fromARGB(255, 31, 29, 29),
           borderRadius: BorderRadius.circular(30), // 👈 Rounded corners
         ),
       ),
@@ -192,11 +188,12 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context, HomeState state) {
         return Material(
           child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12), // ✅ rounded corners
-              border: Border.all(color: Colors.grey.shade300),
+              borderRadius: BorderRadius.circular(30), // ✅ rounded corners
+              border: Border.all(color: Colors.grey.shade300,style: BorderStyle.solid),
             ),
             child: DropdownMenu<DataDestination>(
               controller: textLocation,
@@ -204,6 +201,9 @@ class _HomePageState extends State<HomePage> {
               hintText: null, // hint will be handled by label
               requestFocusOnTap: true,
               enableFilter: true,
+              trailingIcon:
+                  const SizedBox.shrink(), // ✅ Hides the dropdown icon
+
               inputDecorationTheme: InputDecorationTheme(
                 border: InputBorder.none,
                 labelStyle: TextStyle(
@@ -211,7 +211,6 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 16,
                 ),
               ),
-              label: const Text("Search your destination"),
               menuStyle: MenuStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.white),
                 shape: MaterialStatePropertyAll(
