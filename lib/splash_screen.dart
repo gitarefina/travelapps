@@ -128,7 +128,7 @@ class _SplashScreenState extends State<SplashScreen> {
     for (var i = 0; i < textList.length; i++) {
       widgets.add(
         Positioned(
-          bottom: 50,
+          bottom: 200,
 
           child: Container(
             child: Text(
@@ -149,6 +149,27 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     return widgets;
+  }
+
+  Widget textHeaderMain() {
+    return Positioned(
+      bottom: 230,
+
+      child: Container(
+        child: Text(
+          softWrap: true,
+          overflow: TextOverflow.visible,
+
+         "Travel Easy",
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: "nunito",
+            fontSize: 15.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
   }
 
   List<Widget> buttonIndex() {
@@ -202,9 +223,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ), // button background color
           ),
           onPressed: nextSlide,
-          child:
-          
-           Container(
+          child: Container(
             height: 49.h,
             width: 100.w,
 
@@ -225,7 +244,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   List<Widget> buttonLastIndex() {
     return [
-  Positioned(
+      Positioned(
         bottom: 100,
         right: 30,
         child: ElevatedButton(
@@ -237,26 +256,24 @@ class _SplashScreenState extends State<SplashScreen> {
               14,
             ), // button background color
           ),
-          onPressed:() {
+          onPressed: () {
             print("ketrigger gaa");
-              context.go('/home');
+            context.go('/home');
 
+            setState(() {
               setState(() {
-                setState(() {
-                  _currentIndex = image.length - 1;
-                });
-                _controller.animateToPage(_currentIndex);
+                _currentIndex = image.length - 1;
               });
+              _controller.animateToPage(_currentIndex);
+            });
           },
-          child:
-          
-           Center(
-             child: Container(
+          child: Center(
+            child: Container(
               height: 49.h,
               width: 180.w,
-             
+
               child: Text(
-                "Getting started",
+                "Get started",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: "nunito",
@@ -264,14 +281,10 @@ class _SplashScreenState extends State<SplashScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-                       ),
-           ),
+            ),
+          ),
         ),
       ),
-  
-
-
-     
     ];
   }
 }

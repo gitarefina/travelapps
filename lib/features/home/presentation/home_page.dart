@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     "https://perkim.id/wp-content/uploads/2025/03/ilustrasi-bali_169.jpeg",
     "https://perkim.id/wp-content/uploads/2025/03/ilustrasi-bali_169.jpeg",
     "https://perkim.id/wp-content/uploads/2025/03/ilustrasi-bali_169.jpeg",
-    "https://perkim.id/wp-content/uploads/2025/03/ilustrasi-bali_169.jpeg"
+    "https://perkim.id/wp-content/uploads/2025/03/ilustrasi-bali_169.jpeg",
   ];
 
   @override
@@ -46,10 +46,16 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           child: Column(
             children: [
+              SizedBox(height: 100,),
+              textHeaderMain("Find your place"),
+
               textHeader("Promo"),
               promo(imageList),
-              textHeader("Recent History"),
+              textHeader("Find your experience"),
+
               searchBox(),
+
+              textHeader("Recent History"),
               recentHistory(),
             ],
           ),
@@ -111,7 +117,24 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
- Widget promo(List<String> image) {
+
+  Widget textHeaderMain(String description) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Container(
+        child: Text(
+          description,
+          style: TextStyle(
+            fontFamily: 'nunito',
+            fontSize: 25.sp,
+            color: const Color.fromARGB(255, 32, 32, 32),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget promo(List<String> image) {
     print("image list home");
     print(image.length);
     return SizedBox(
@@ -148,8 +171,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
- 
- 
+
   Widget searchBox() {
     return Center(
       child: Container(
@@ -164,64 +186,64 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-Widget dropDownMenu() {
-  return BlocConsumer<HomeBloc, HomeState>(
-    builder: (BuildContext context, HomeState state) {
-      return Material(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12), // ✅ rounded corners
-            border: Border.all(
-              color: Colors.grey.shade300,
+
+  Widget dropDownMenu() {
+    return BlocConsumer<HomeBloc, HomeState>(
+      builder: (BuildContext context, HomeState state) {
+        return Material(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12), // ✅ rounded corners
+              border: Border.all(color: Colors.grey.shade300),
             ),
-          ),
-          child: DropdownMenu<DataDestination>(
-            controller: textLocation,
-            width: MediaQuery.of(context).size.width,
-            hintText: null, // hint will be handled by label
-            requestFocusOnTap: true,
-            enableFilter: true,
-            inputDecorationTheme: InputDecorationTheme(
-              border: InputBorder.none,
-              labelStyle: TextStyle(
-                color: Colors.grey.shade600, // ✅ grey label
-                fontSize: 16,
-              ),
-            ),
-            label: const Text("Search your destination"),
-            menuStyle: MenuStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.white),
-              shape: MaterialStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+            child: DropdownMenu<DataDestination>(
+              controller: textLocation,
+              width: MediaQuery.of(context).size.width,
+              hintText: null, // hint will be handled by label
+              requestFocusOnTap: true,
+              enableFilter: true,
+              inputDecorationTheme: InputDecorationTheme(
+                border: InputBorder.none,
+                labelStyle: TextStyle(
+                  color: Colors.grey.shade600, // ✅ grey label
+                  fontSize: 16,
                 ),
               ),
+              label: const Text("Search your destination"),
+              menuStyle: MenuStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.white),
+                shape: MaterialStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              onSelected: (DataDestination? menu) {
+                setState(() {
+                  selectedMenu = menu;
+                  destinationid = menu?.destinationId;
+                });
+              },
+              dropdownMenuEntries: destination!
+                  .map<DropdownMenuEntry<DataDestination>>((menu) {
+                    return DropdownMenuEntry<DataDestination>(
+                      value: menu,
+                      label: menu.name ?? '',
+                    );
+                  })
+                  .toList(),
             ),
-            onSelected: (DataDestination? menu) {
-              setState(() {
-                selectedMenu = menu;
-                destinationid = menu?.destinationId;
-              });
-            },
-            dropdownMenuEntries: destination!
-                .map<DropdownMenuEntry<DataDestination>>((menu) {
-              return DropdownMenuEntry<DataDestination>(
-                value: menu,
-                label: menu.name ?? '',
-              );
-            }).toList(),
           ),
-        ),
-      );
-    },
-    listener: (BuildContext context, HomeState state) {
-      if (state.state == HomeStateStatus.success) {
-        destination = state.data;
-        destinationHistory = state.dataHistory;
-      }
-    },
-  );
-}
+        );
+      },
+      listener: (BuildContext context, HomeState state) {
+        if (state.state == HomeStateStatus.success) {
+          destination = state.data;
+          destinationHistory = state.dataHistory;
+        }
+      },
+    );
+  }
 }
